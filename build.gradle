@@ -1,0 +1,32 @@
+plugins {
+	id 'org.springframework.boot' version '4.1.0' apply false
+	id 'io.spring.dependency-management' version '1.1.7' apply false
+}
+
+ext {
+	springBootVersion = '4.1.0'
+}
+
+subprojects {
+	group = 'az.taleh'
+	version = '0.0.1-SNAPSHOT'
+
+	apply plugin: 'java-library'
+	apply plugin: 'io.spring.dependency-management'
+
+	java {
+		toolchain {
+			languageVersion = JavaLanguageVersion.of(26)
+		}
+	}
+
+	dependencyManagement {
+		imports {
+			mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
+		}
+	}
+
+	tasks.named('test') {
+		useJUnitPlatform()
+	}
+}
